@@ -1,0 +1,199 @@
+﻿@page "/ViewUsers"
+
+@using PoCLayer1.Http
+@using PoCLayer1.Model
+@inject IUserHttpClient _iUserHttpClient
+@inject IEmployeeHttpClient _iEmployeeHttpClient
+@inject NavigationManager navMgr
+
+
+    <AuthorizeView Roles="Manager, Admin">
+        <h3>Users: </h3>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="Employee">
+        <h3>Managers: </h3>
+    </AuthorizeView>
+
+    @if (users == null)
+
+    {
+        <p>
+            <em>Loading...</em>
+        </p>
+    }
+    else if (!users.Any())
+    {
+        <p>
+            <em>There are no users within the system.</em>
+        </p>
+    }
+    else 
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <AuthorizeView Roles="Manager, Admin">
+                    <th>User ID</th>
+                    <th>Username</th>
+                </AuthorizeView>
+            
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+
+                <AuthorizeView Roles="Manager, Admin">
+                    <th>Remove</th>
+                </AuthorizeView>
+
+                <AuthorizeView Roles="Manager">
+                    <th>Edit</th>
+                </AuthorizeView>
+
+            </tr>
+            </thead>
+            <tbody>
+        
+            <AuthorizeView Roles="Manager">
+                @foreach (var item in users)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.username</td>
+                        <td>@item.firstName</td>
+                        <td>@item.lastName</td>
+                        <td>@item.email</td>
+                        <td>@item.phoneNumber</td>
+            
+
+                        <td>
+                            @switch (item.authLevel)
+                            {
+                                case "Employee":
+                                    <label @onclick="@(() => RemoveEmployee(item.id))" style="cursor:pointer; color: red; font-weight: bold">
+                                        &#x2716;
+                                    </label>
+                                    break;
+                            }
+
+                        </td>
+                  
+                        <td>
+                            @if (item.authLevel.Equals("Employee")) //DONT NEED TO CHECK ANYMORE
+                            {
+                                <label @onclick="@(() => EditEmployee(item.id))" style="cursor:pointer; color: #0000ff; font-weight: bold">
+                                    &#128295;
+                                </label>
+                            }
+                        </td>
+                    </tr>
+                }
+            </AuthorizeView>
+
+
+            <AuthorizeView Roles="Admin">
+                @foreach (var item in users)
+                {
+                    <tr>
+                        @if (item.authLevel.Equals("Manager") || item.authLevel.Equals("Admin"))
+                        {
+                            <td>@item.id</td>
+                            <td>@item.username</td>
+                            <td>@item.firstName</td>
+                            <td>@item.lastName</td>
+                            <td>@item.email</td>
+                            <td>@item.phoneNumber</td>
+
+                            <td>
+                                @if (item.authLevel.Equals("Manager"))
+                                {
+                                    <label @onclick="@(() => RemoveUser(item.id))" style="cursor:pointer; color: #0000ff; font-weight: bold">
+                                        &#x2716;
+                                    </label>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </AuthorizeView>
+        
+            <AuthorizeView Roles="Employee">
+            
+                @foreach (var item in users)
+                {
+                    @if (item.authLevel.Equals("Manager"))
+                    {
+                        <tr>
+                            <td>@item.firstName</td>
+                            <td>@item.lastName</td>
+                            <td>@item.email</td>
+                            <td>@item.phoneNumber</td>
+                        </tr>
+                    }
+                }
+            </AuthorizeView>
+
+            </tbody>
+        </table> 
+    }
+    @if (!string.IsNullOrEmpty(errorLabel))
+    {
+        <label style="color: red">@errorLabel</label>
+    }
+
+
+@code {
+    private ICollection<Employee> employees;
+    private ICollection<User> users;
+    private string errorLabel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await _iUserHttpClient.GetAllUsersAsync();
+        employees = await _iEmployeeHttpClient.GetAllEmployeesAsync();
+    }
+    
+    private async Task RemoveUser(long id)
+    {
+        errorLabel = "";
+        try
+        {
+            
+            User userToRemove = users.First(user => user.id == id);
+            await _iUserHttpClient.DeleteUserByIdAsync(id);
+            users.Remove(userToRemove);
+            await OnInitializedAsync();
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+    }
+    
+    private async Task RemoveEmployee(long id)
+    {
+        errorLabel = "";
+        try
+        {
+            
+            Employee employeeToRemove = employees.First(employee => employee.id == id);
+            await _iEmployeeHttpClient.DeleteEmployeeByIdAsync(id);
+            employees.Remove(employeeToRemove);
+            await OnInitializedAsync();
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+    }
+
+    private async Task EditEmployee(long id)
+    {
+        long Id = id;
+        navMgr.NavigateTo($"ManagerEditEmployee/{Id}");
+    }
+    
+    
+
+}

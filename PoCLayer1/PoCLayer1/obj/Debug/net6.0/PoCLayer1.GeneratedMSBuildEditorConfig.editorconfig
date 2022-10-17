@@ -1,0 +1,100 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = PoCLayer1
+build_property.RootNamespace = PoCLayer1
+build_property.ProjectDir = C:\Users\Peter\Desktop\SEP3\SEP3-Management_System\PoCLayer1\PoCLayer1\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Peter\Desktop\SEP3\SEP3-Management_System\PoCLayer1\PoCLayer1
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/AddEmployee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkRW1wbG95ZWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/AddManager.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkTWFuYWdlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/AddShift.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkU2hpZnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/EditUser.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdFVzZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/EmployeeData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/LoginButtons.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5CdXR0b25zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/Shifts.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hpZnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/ViewUsers.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1VzZXJzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/AdminEditOwnAcc.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5FZGl0T3duQWNjLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-494m4vxjcf
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/EmployeeEditOwnAcc.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWVFZGl0T3duQWNjLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-x08hfizfdx
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/ManagerEditEmployee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFuYWdlckVkaXRFbXBsb3llZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-vcxfthrmmw
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/ManagerEditOwnAcc.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFuYWdlckVkaXRPd25BY2MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-btxyzthwqb
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-76y0r2scz8
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hi5te4vhjo
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Peter/Desktop/SEP3/SEP3-Management_System/PoCLayer1/PoCLayer1/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

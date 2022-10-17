@@ -1,0 +1,122 @@
+﻿<AuthorizeView Roles = "Manager">
+
+        @page "/AddEmployee"
+        @using PoCLayer1.Model
+        @using PoCLayer1.Http
+        @using Microsoft.AspNetCore.Components
+        @inject NavigationManager navMgr
+        @inject IEmployeeHttpClient _employeeHttpClient
+        
+
+        @* Create MANAGER *@
+        <div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
+            <div class="form-group card-body">
+                <h3>Create employee account:</h3>
+                <br/>
+                <div class="row">
+                    <label>Username:</label>
+                    <div class="col-4">
+                        <input type="text" placeholder="Enter username" @bind="username"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Password:</label>
+                        <div class="col-4">
+                            <input type="password" placeholder="Enter password" @bind="password"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-4">
+                        <label>First name:</label>
+                        <div class="col-4">
+                            <input type="text" placeholder="Enter first name" @bind="first_name"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Last name:</label>
+                        <div class="col-4">
+                            <input type="text" placeholder="Enter last name" @bind="last_name"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Email:</label>
+                        <div class="col-4">
+                            <input type="text" placeholder="Enter email" @bind="email"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Phone number:</label>
+                        <div class="col-4">
+                            <input type="text" placeholder="Enter phone number" @bind="phone_number"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Address:</label>
+                        <div class="col-4">
+                            <input type="text" placeholder="Enter address" @bind="address"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+
+                <br/>
+                <div class="field">
+                    <button class="button btn-dark" @onclick="addManager">Create account</button>
+                </div>
+            </div>
+        </div>
+
+
+        @if (returnedEmployeeFromAdd != null)
+        {
+            <div class="field">
+                <label style="color: green">
+
+                    <br/>
+                    <h1>Added:</h1>
+                    <a>Login: @returnedEmployeeFromAdd.username</a>
+                    <a>Password: @returnedEmployeeFromAdd.password</a>
+                </label>
+            </div>
+
+        }
+
+    @code {
+
+            private Employee returnedEmployeeFromAdd;
+            private string username;
+            private string password;
+            private string first_name;
+            private string last_name;
+            private string email;
+            private string phone_number;
+            private long id;
+            private string address;
+
+        private async Task addManager()
+            {
+            //(long id, string username, string password, string firstName, string lastName, string email, string phoneNumber, string authLevel, string address, double hours) 
+                Employee newEmployee = new Employee(default, username, password, first_name, last_name, email, phone_number, "Employee", address, 58);
+                Console.WriteLine("HOME: " + newEmployee.id);
+                returnedEmployeeFromAdd = await _employeeHttpClient.AddEmployeeAsync(newEmployee);
+                navMgr.NavigateTo("/ViewUsers");
+            }
+
+        }
+</AuthorizeView>

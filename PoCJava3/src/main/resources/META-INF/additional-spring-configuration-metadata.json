@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.jpa.proporties.hibernate.format_sql",
+      "type": "java.lang.String",
+      "description": "Description for spring.jpa.proporties.hibernate.format_sql."
+  }
+] }

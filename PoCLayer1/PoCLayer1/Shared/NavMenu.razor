@@ -1,0 +1,119 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">SAMPS</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        
+        <AuthorizeView>
+            <NotAuthorized>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Login">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Login
+                </NavLink>
+            </div>
+            </NotAuthorized>
+        </AuthorizeView>
+        
+        
+        <AuthorizeView Roles="Admin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AddManager">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Create manager
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Manager">
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AddEmployee">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Create employee
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Manager">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AddShift">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Add Shift
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Manager, Employee">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Shifts">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Shifts
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Manager, Admin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ViewUsers">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Users information
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        
+        <AuthorizeView Roles="Employee">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ViewUsers">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Management contacts
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Manager, Employee">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="EmployeeData">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Employee data
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        
+        <AuthorizeView Roles="Manager">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="ManagerEditOwnAcc">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Edit account
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        
+        <AuthorizeView Roles="Employee">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="EmployeeEditOwnAcc">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Edit account
+                </NavLink>
+            </div>
+        </AuthorizeView>
+        
+        <AuthorizeView Roles="Admin">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="AdminEditOwnAcc">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Edit account
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+}

@@ -1,0 +1,94 @@
+﻿@page "/AdminEditOwnAcc"
+@using Microsoft.AspNetCore.Components
+@using PoCLayer1.Authentication
+@using PoCLayer1.Http
+@using PoCLayer1.Model
+@inject IUserHttpClient _iUserHttpClient
+@inject NavigationManager navMgr
+@inject IAuthService _authS
+
+
+
+<div class="box">
+    <h3>Edit your data:</h3>
+    <EditForm Model="@userToEdit" OnValidSubmit="@Save">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+
+        <div class="form-group field">
+            <label>First name:</label>
+            <div class="col-1">
+                <InputTextArea type="text" placeholder="Enter first name" @bind-Value="userToEdit.firstName" style="resize: none; text-align: center; max-height: 2.5rem; margin-top: 0.7rem; padding-top: 0.35rem"/>
+            </div>
+        </div>
+        
+        <div class="form-group field">
+            <label>Last name:</label>
+            <div class="col-1">
+                <InputTextArea type="text" placeholder="Enter last name" @bind-Value="userToEdit.lastName" style="resize: none; text-align: center; max-height: 2.5rem; margin-top: 0.7rem; padding-top: 0.35rem"/>
+            </div>
+        </div>
+        
+        <div class="form-group field">
+                    <label>Phone number:</label>
+            <div class="col-1">
+                <InputTextArea type="text" placeholder="Enter phone number" @bind-Value="userToEdit.phoneNumber" style="resize: none; text-align: center; max-height: 2.5rem; margin-top: 0.7rem; padding-top: 0.35rem"/>
+                </div>
+            </div>
+        
+        <div class="form-group field">
+            <label>Email:</label>
+            <div class="col-1">
+                <InputTextArea type="text" placeholder="Enter Email" @bind-Value="userToEdit.email" style="resize: none; text-align: center; max-height: 2.5rem; margin-top: 0.7rem; padding-top: 0.35rem"/>
+                </div>
+            </div>
+        
+        <div class="form-group field">
+            <label>Password:</label>
+            <div class="col-1">
+                <InputTextArea type="text" placeholder="Enter password" @bind-Value="userToEdit.password" style="resize: none; text-align: center; max-height: 2.5rem; margin-top: 0.7rem; padding-top: 0.35rem"/>
+            </div>
+        </div>
+
+        <p class="actions">
+            <button type="submit">Update</button>
+        </p>
+    </EditForm>
+    @if (!string.IsNullOrEmpty(errorLabel))
+    {
+        <label>@errorLabel</label>
+    }
+
+</div>
+
+
+@code {
+
+    [Parameter]
+    public long Id { get; set; }
+
+    private User userToEdit = new User();
+    private String errorLabel = String.Empty;
+    long loggedUser;
+     
+    
+    protected override async Task OnInitializedAsync()
+    {
+        loggedUser =  await _authS.GetCurrentUserId();
+        userToEdit = await _iUserHttpClient.GetUserByIdAsync(loggedUser);
+
+    }
+    private async Task Save()
+    {
+        errorLabel = "";
+        try
+        {
+            await _iUserHttpClient.UpdateUserAsync(loggedUser, userToEdit);
+            navMgr.NavigateTo("/ViewUsers");
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+    }
+}

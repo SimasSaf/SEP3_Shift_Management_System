@@ -1,0 +1,126 @@
+﻿@page "/Shifts"
+@using PoCLayer1.Model
+@using PoCLayer1.Http
+@using PoCLayer1.Authentication
+@inject IShiftHttpClient _iShiftHttpClient
+@inject AuthenticationStateProvider _authenticationStateProvider
+@inject IAuthService _authS
+
+
+<h3>Shifts: </h3>
+
+@if (shifts == null)
+
+{
+    <p>
+    <em>Loading...</em>
+        </p>
+}
+else if (!shifts.Any())
+{
+    <p>
+    <em>No shifts have been added.</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Shift ID</th> 
+            <th>description</th> 
+            <th>date</th> 
+            <th>time</th> 
+            <th>Hands required</th>  
+            
+            <AuthorizeView Roles="Manager">
+                <th>Remove</th>
+            </AuthorizeView>
+            
+            <AuthorizeView Roles="Employee">
+                <th>Assign</th>
+            </AuthorizeView>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in shifts)
+        {
+            <tr>
+                <td>@item.id</td> <td>@item.description</td> <td>@item.date</td> <td>@item.time</td> <td>@item.handsReq</td>
+                
+                <AuthorizeView Roles="Manager">
+                    <td>
+                        <label @onclick="@(() => RemoveShift(item.id))" style="cursor:pointer; color: red; font-weight: bold">
+                            &#x2717;
+                        </label>
+                    </td>
+                </AuthorizeView>
+                
+                <AuthorizeView Roles="Employee">
+                    <td>
+                        <label @onclick="@(() => EnrollToShift(item.id))" style="cursor:pointer; color: green; font-weight: bold">
+                            &#9995;
+                        </label>
+                    </td>
+                </AuthorizeView>
+                
+                
+
+            </tr>
+        }
+        </tbody>
+    </table> 
+}
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <label style="color: red">@errorLabel</label>
+}
+
+@code {
+    
+    private ICollection<Shift> shifts;
+    private string errorLabel;
+    private Shift shiftToEnroll;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        shifts = await _iShiftHttpClient.GetAllShiftsAsync();
+    }
+    
+    private async Task RemoveShift(long id)
+    {
+        errorLabel = "";
+        try
+        {
+            Shift shiftToRemove = shifts.First(shift => shift.id == id);
+            await _iShiftHttpClient.DeleteShiftByIdAsync(id);
+            shifts.Remove(shiftToRemove);
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+    }
+
+    private async Task EnrollToShift(long id)
+    {
+        
+        errorLabel = "";
+        try
+        {
+            long loggedUser =  await _authS.GetCurrentUserId();
+            
+            Console.WriteLine(" testux: " + loggedUser);
+
+            shiftToEnroll = await _iShiftHttpClient.GetShiftByIdAsync(id);
+            await _iShiftHttpClient.EnrollToShift(id, loggedUser, shiftToEnroll);
+        }
+        catch (Exception e)
+        {
+            errorLabel = e.Message;
+        }
+
+    }
+    
+}

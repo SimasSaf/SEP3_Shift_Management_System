@@ -1,0 +1,84 @@
+﻿@page "/EmployeeData"
+@using PoCLayer1.Http
+@using PoCLayer1.Model
+@inject IEmployeeHttpClient _iEmployeeHttpClient
+
+<h3>Employee data: </h3>
+
+@if (employees == null)
+
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else if (!employees.Any())
+{
+    <p>
+        <em>There are no employees within the system.</em>
+    </p>
+}
+else
+{
+    
+    <table class="table">
+        <thead>
+        <tr>
+            
+            <AuthorizeView Roles="Manager">
+                <th>User ID</th>
+            </AuthorizeView>
+            
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Phone number</th>
+            <th>Address:</th>
+            
+            <AuthorizeView Roles="Manager">
+                <th>Hours</th>
+            </AuthorizeView>
+
+        </tr>
+        </thead>
+        <tbody>
+        
+        <AuthorizeView Roles="Manager">
+            @foreach (var item in employees)
+            {
+                <tr>
+                    <td>@item.id</td> <td>@item.firstName</td> <td>@item.lastName</td> <td>@item.phoneNumber</td> <td>@item.address</td> <td>@item.hours</td>
+
+                </tr>
+            }
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Employee">
+            @foreach (var item in employees)
+            {
+                <tr>
+                    <td>@item.firstName</td> <td>@item.lastName</td> <td>@item.phoneNumber</td> <td>@item.address</td>
+
+                </tr>
+            }
+        </AuthorizeView>
+
+
+        </tbody>
+    </table> 
+}
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <label style="color: red">@errorLabel</label>
+}
+
+@code {
+    
+    private ICollection<Employee> employees;
+    private string errorLabel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await _iEmployeeHttpClient.GetAllEmployeesAsync();
+    }
+
+}

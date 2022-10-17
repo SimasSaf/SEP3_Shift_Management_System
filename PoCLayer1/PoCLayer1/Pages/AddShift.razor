@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNetCore.Components
+@using PoCLayer1.Http
+@using PoCLayer1.Model
+@inject NavigationManager navMgr
+@inject IShiftHttpClient _shiftHttpClient
+
+<AuthorizeView Roles = "Manager">
+@page "/AddShift"
+
+@* AddShift *@
+<div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
+<div class="form-group card-body">
+    <h3>Add shift</h3>
+    <br/>
+    <div class="row">
+        <label>Description:</label>
+        <div class="col-4">
+            <input type="text" placeholder="Enter information about the shift" @bind="description"/>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-4">
+            <label>Place:</label>
+            <div class="col-4">
+                <input type="text" placeholder="Enter address" @bind="address"/>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-4">
+            <label>Time:</label>
+            <div class="col-4">
+                <input type="text" placeholder="Enter time" @bind="time"/>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-4">
+            <label>Date:</label>
+            <div class="col-4">
+                <input type="text" placeholder="Enter date" @bind="date"/>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-4">
+            <label>People required:</label>
+            <div class="col-4">
+                <input type="number" placeholder="Enter required hands" @bind="hands_req"/>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+                           
+        <br/>
+        <div class="field">
+            <button class="button btn-dark" @onclick="addShift">add shift</button>
+        </div>
+    </div>
+</div>
+</div>
+
+        
+        @if (returnedShiftFromAdd != null)
+        {
+            <div class="field">
+                <label style="color: green">
+                    
+                    <br/>
+                    <h1>Added:</h1>
+                    <a>Description: @returnedShiftFromAdd.description</a>
+                    <a>Time: @returnedShiftFromAdd.time</a>
+                </label>
+            </div>
+            
+        }
+
+@code {
+
+    
+    private Shift returnedShiftFromAdd;
+    private long id;
+    private string description;
+    private string address;
+    private string time;
+    private string date;
+    private int hands_req;
+    
+
+
+    private async Task addShift()
+    {
+        Console.WriteLine("IS PRINTING? " + id + " " + description + " " + address + " " + time + " " + date + " " + hands_req );
+        Shift newShift = new Shift(default, description, address, time, date, hands_req);
+        Console.WriteLine("HOME: " + newShift.id + " " + newShift.description);
+        returnedShiftFromAdd = await _shiftHttpClient.AddShiftAsync(newShift);
+        //navMgr.NavigateTo("/Home");
+    }
+
+    }
+
+
+</AuthorizeView>

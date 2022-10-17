@@ -1,0 +1,57 @@
+﻿@page "/Home"
+@page "/"
+@page "/Login"
+<AuthorizeView>
+    <NotAuthorized>
+
+
+@inject NavigationManager navMgr
+@using Authentication
+@inject IAuthService authService
+
+
+
+        <h3>Login</h3>
+        <div class="card" style="width: 40rem; border: 0.1rem solid darkblue;">
+            <div class="form-group card-body">
+                <br/>
+                <div class="row">
+                    <label>Login:</label>
+                    <div class="col-4">
+                        <input type="login" placeholder="Login" @bind="username"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-4">
+                        <label>Password:</label>
+                        <div class="col-4">
+                            <input type="password" placeholder="Enter password" @bind="password"/>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="field">
+                    <button class="button btn-dark" @onclick="CheckIfValid">Post</button>
+                </div>
+            </div>
+        </div>
+    </NotAuthorized>
+    <Authorized><h1> Logged in: </h1></Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Employee"><h1>Employee view</h1></AuthorizeView>
+<AuthorizeView Roles="Admin"><h1>Admin view</h1></AuthorizeView>
+<AuthorizeView Roles="Manager"><h1>Manager view</h1></AuthorizeView>
+
+
+@code {
+
+    private string username;
+    private string password;
+    
+    private async Task CheckIfValid()
+    {
+        await authService.LoginAsync(username, password);
+    }
+}
